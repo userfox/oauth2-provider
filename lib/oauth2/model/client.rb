@@ -2,20 +2,18 @@ module OAuth2
   module Model
     
     class Client < ActiveRecord::Base
-      self.table_name = :oauth2_clients
-      
-      belongs_to :oauth2_client_owner, :polymorphic => true
-      alias :owner  :oauth2_client_owner
-      alias :owner= :oauth2_client_owner=
-          
-      has_many :authorizations, :class_name => 'OAuth2::Model::Authorization', :dependent => :destroy
+      include Mongoid::Document
+      include Mongoid::Timestamps
+
+      belongs_to :product
+      has_many :authorizations, :class_name => 'OAuth2::Model::Authorization'
       
       validates_uniqueness_of :client_id
       validates_presence_of   :name, :redirect_uri
       validate :check_format_of_redirect_uri
       
       attr_accessible :name, :redirect_uri
-      
+
       before_create :generate_credentials
       
       def self.create_client_id

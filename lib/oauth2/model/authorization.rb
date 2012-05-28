@@ -2,15 +2,13 @@ module OAuth2
   module Model
     
     class Authorization < ActiveRecord::Base
-      self.table_name = :oauth2_authorizations
-      
-      belongs_to :oauth2_resource_owner, :polymorphic => true
-      alias :owner  :oauth2_resource_owner
-      alias :owner= :oauth2_resource_owner=
-      
+      include Mongoid::Document
+      include Mongoid::Timestamps
+
+      belongs_to :product
       belongs_to :client, :class_name => 'OAuth2::Model::Client'
       
-      validates_presence_of :client, :owner
+      validates_presence_of :client, :product
       
       validates_uniqueness_of :code,               :scope => :client_id, :allow_nil => true
       validates_uniqueness_of :refresh_token_hash, :scope => :client_id, :allow_nil => true

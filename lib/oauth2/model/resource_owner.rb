@@ -5,13 +5,12 @@ module OAuth2
       def self.included(klass)
         klass.has_many :oauth2_authorizations,
                        :class_name => 'OAuth2::Model::Authorization',
-                       :as => :oauth2_resource_owner,
-                       :dependent => :destroy
+                       :as => :product
       end
       
       def grant_access!(client, options = {})
         authorization = oauth2_authorizations.find_by_client_id(client.id) ||
-                        Model::Authorization.create(:owner => self, :client => client)
+                        Model::Authorization.create(:product => self, :client => client)
         
         if scopes = options[:scopes]
           scopes = authorization.scopes + scopes
