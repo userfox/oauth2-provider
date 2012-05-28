@@ -1,5 +1,3 @@
-require 'active_record'
-
 module OAuth2
   module Model
     autoload :ClientOwner,   ROOT + '/oauth2/model/client_owner'
