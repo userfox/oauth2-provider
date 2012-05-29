@@ -1,7 +1,7 @@
 module OAuth2
   module Model
     
-    class Client < ActiveRecord::Base
+    class Client
       include Mongoid::Document
       include Mongoid::Timestamps
 

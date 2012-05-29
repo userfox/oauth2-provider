@@ -1,7 +1,7 @@
 module OAuth2
   module Model
     
-    class Authorization < ActiveRecord::Base
+    class Authorization
       include Mongoid::Document
       include Mongoid::Timestamps
 
