@@ -11,6 +11,7 @@ module OAuth2
       field :client_id, :type=>Integer
       field :name, :type=>String
       field :redirect_uri, :type=>String
+      field :client_secret_hash, :type=>String
 
       validates_uniqueness_of :client_id
       validates_presence_of   :name, :redirect_uri
