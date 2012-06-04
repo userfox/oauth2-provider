@@ -12,6 +12,7 @@ module OAuth2
       field :code, :type=>String
       field :refresh_token_hash, :type=>String
       field :access_token_hash, :type=>String
+      field :expires_at, :type=>Date
 
       validates_presence_of :client, :product
       
