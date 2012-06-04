@@ -5,9 +5,10 @@ module OAuth2
       include Mongoid::Document
       include Mongoid::Timestamps
 
-      belongs_to :product
+      belongs_to :owner, polymorphic: true
       has_many :authorizations, :class_name => 'OAuth2::Model::Authorization'
       
+      store_in collection: "oauth2_clients"
       field :client_id, :type=>Integer
       field :name, :type=>String
       field :redirect_uri, :type=>String

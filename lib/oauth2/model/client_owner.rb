@@ -5,7 +5,7 @@ module OAuth2
       def self.included(klass)
         klass.has_many :oauth2_clients,
                        :class_name => 'OAuth2::Model::Client',
-                       :as => :product
+                       :as => :owner
       end
     end
     

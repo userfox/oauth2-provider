@@ -4,8 +4,9 @@ module OAuth2
     class Authorization
       include Mongoid::Document
       include Mongoid::Timestamps
-
-      belongs_to :product
+      
+      store_in collection: "oauth2_authorizations"
+      belongs_to :owner, polymorphic: true
       belongs_to :client, :class_name => 'OAuth2::Model::Client'
       
       field :code, :type=>String
