@@ -8,6 +8,10 @@ module OAuth2
       belongs_to :product
       has_many :authorizations, :class_name => 'OAuth2::Model::Authorization'
       
+      field :client_id, :type=>Integer
+      field :name, :type=>String
+      field :redirect_uri, :type=>String
+
       validates_uniqueness_of :client_id
       validates_presence_of   :name, :redirect_uri
       validate :check_format_of_redirect_uri

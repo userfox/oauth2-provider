@@ -8,6 +8,10 @@ module OAuth2
       belongs_to :product
       belongs_to :client, :class_name => 'OAuth2::Model::Client'
       
+      field :code, :type=>String
+      field :refresh_token_hash, :type=>String
+      field :access_token_hash, :type=>String
+
       validates_presence_of :client, :product
       
       validates_uniqueness_of :code,               :scope => :client_id, :allow_nil => true
