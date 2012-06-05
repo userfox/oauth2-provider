@@ -14,7 +14,7 @@ module OAuth2
       field :access_token_hash, :type=>String
       field :expires_at, :type=>Date
 
-      validates_presence_of :client, :product
+      validates_presence_of :client, :owner
       
       validates_uniqueness_of :code,               :scope => :client_id, :allow_nil => true
       validates_uniqueness_of :refresh_token_hash, :scope => :client_id, :allow_nil => true
