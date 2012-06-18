@@ -13,7 +13,12 @@ module OAuth2
       field :refresh_token_hash, :type=>String
       field :access_token_hash, :type=>String
       field :expires_at, :type=>Date
+      field :scope, :type=>String
 
+      index({client_id: -1, code: -1}, { unique: true})
+      index({access_token_hash: -1}, { unique: true})
+      index({client_id: -1, access_token_hash: -1}, { unique: true})
+      index({client_id: -1, refresh_token_hash: -1}, { unique: true})
       validates_presence_of :client, :owner
       
       validates_uniqueness_of :code,               :scope => :client_id, :allow_nil => true
