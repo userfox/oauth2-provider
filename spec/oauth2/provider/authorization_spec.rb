@@ -6,7 +6,7 @@ describe OAuth2::Provider::Authorization do
   let(:authorization) { OAuth2::Provider::Authorization.new(resource_owner, params) }
   
   let(:params) { { 'response_type' => 'code',
-                   'client_id'     => @client.client_id,
+                   'cid'     => @client.cid,
                    'redirect_uri'  => @client.redirect_uri }
                }
   
@@ -70,12 +70,12 @@ describe OAuth2::Provider::Authorization do
     end
   end
   
-  describe "missing client_id" do
-    before { params.delete('client_id') }
+  describe "missing cid" do
+    before { params.delete('cid') }
     
     it "is invalid" do
       authorization.error.should == "invalid_request"
-      authorization.error_description.should == "Missing required parameter client_id"
+      authorization.error_description.should == "Missing required parameter cid"
     end
     
     it "does not cause a redirect" do
@@ -83,8 +83,8 @@ describe OAuth2::Provider::Authorization do
     end
   end
   
-  describe "with an unknown client_id" do
-    before { params['client_id'] = "unknown" }
+  describe "with an unknown cid" do
+    before { params['cid'] = "unknown" }
     
     it "is invalid" do
       authorization.error.should == "invalid_client"
@@ -325,7 +325,7 @@ describe OAuth2::Provider::Authorization do
     it "only exposes OAuth-related parameters" do
       authorization.params.should == {
         'response_type' => 'code',
-        'client_id'     => @client.client_id,
+        'cid'     => @client.cid,
         'redirect_uri'  => @client.redirect_uri,
         'state'         => 'valid',
         'scope'         => 'valid'
@@ -336,7 +336,7 @@ describe OAuth2::Provider::Authorization do
       params.delete('scope')
       authorization.params.should == {
         'response_type' => 'code',
-        'client_id'     => @client.client_id,
+        'cid'     => @client.cid,
         'redirect_uri'  => @client.redirect_uri,
         'state'         => 'valid'
       }

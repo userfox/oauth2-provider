@@ -12,7 +12,7 @@ module RequestHelpers
   end
   
   def post_basic_auth(auth_params, query_params)
-    url = "http://#{ auth_params['client_id'] }:#{ auth_params['client_secret'] }@localhost:8000/authorize"
+    url = "http://#{ auth_params['cid'] }:#{ auth_params['client_secret'] }@localhost:8000/authorize"
     Net::HTTP.post_form(URI.parse(url), query_params)
   end
   

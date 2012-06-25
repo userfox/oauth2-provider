@@ -12,11 +12,11 @@ describe OAuth2::Provider::Exchange do
   
   shared_examples_for "validates required parameters" do
     describe "missing grant_type" do
-      before { params.delete('client_id') }
+      before { params.delete('cid') }
       
       it "is invalid" do
         exchange.error.should == "invalid_request"
-        exchange.error_description.should == "Missing required parameter client_id"
+        exchange.error_description.should == "Missing required parameter cid"
       end
     end
     
@@ -29,17 +29,17 @@ describe OAuth2::Provider::Exchange do
       end
     end
     
-    describe "missing client_id" do
-      before { params.delete('client_id') }
+    describe "missing cid" do
+      before { params.delete('cid') }
       
       it "is invalid" do
         exchange.error.should == "invalid_request"
-        exchange.error_description.should == "Missing required parameter client_id"
+        exchange.error_description.should == "Missing required parameter cid"
       end
     end
     
-    describe "with an unknown client_id" do
-      before { params['client_id'] = "unknown" }
+    describe "with an unknown cid" do
+      before { params['cid'] = "unknown" }
       
       it "is invalid" do
         exchange.error.should == "invalid_client"
@@ -102,7 +102,7 @@ describe OAuth2::Provider::Exchange do
   end
   
   describe "using authorization_code grant type" do
-    let(:params) { { 'client_id'     => @client.client_id,
+    let(:params) { { 'cid'     => @client.cid,
                      'client_secret' => @client.client_secret,
                      'grant_type'    => 'authorization_code',
                      'code'          => @authorization.code,
@@ -169,7 +169,7 @@ describe OAuth2::Provider::Exchange do
   end
   
   describe "using password grant type" do
-    let(:params) { { 'client_id'      => @client.client_id,
+    let(:params) { { 'cid'      => @client.cid,
                      'client_secret'  => @client.client_secret,
                      'grant_type'     => 'password',
                      'username'       => 'Bob',
@@ -221,7 +221,7 @@ describe OAuth2::Provider::Exchange do
   end
   
   describe "using assertion grant type" do
-    let(:params) { { 'client_id'      => @client.client_id,
+    let(:params) { { 'cid'      => @client.cid,
                      'client_secret'  => @client.client_secret,
                      'grant_type'     => 'assertion',
                      'assertion_type' => 'https://graph.facebook.com/me',
@@ -285,7 +285,7 @@ describe OAuth2::Provider::Exchange do
     describe "with a client unauthorized to use the assertion scheme" do
       before do
         client = Factory(:client)
-        params['client_id'] = client.client_id
+        params['cid'] = client.cid
         params['client_secret'] = client.client_secret
       end
       
@@ -305,7 +305,7 @@ describe OAuth2::Provider::Exchange do
                                            :refresh_token => 'roflscale')
     end
     
-    let(:params) { { 'client_id'     => @client.client_id,
+    let(:params) { { 'cid'     => @client.cid,
                      'client_secret' => @client.client_secret,
                      'grant_type'    => 'refresh_token',
                      'refresh_token' => 'roflscale' }

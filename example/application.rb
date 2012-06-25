@@ -60,7 +60,7 @@ end
 # OAuth 2.0 flow
 
 # Initial request exmample:
-# /oauth/authorize?response_type=token&client_id=7uljxxdgsksmecn5cycvug46v&redirect_uri=http%3A%2F%2Fexample.com%2Fcb&scope=read_notes
+# /oauth/authorize?response_type=token&cid=7uljxxdgsksmecn5cycvug46v&redirect_uri=http%3A%2F%2Fexample.com%2Fcb&scope=read_notes
 [:get, :post].each do |method|
   __send__ method, '/oauth/authorize' do
     @user = User.find_by_id(session[:user_id])

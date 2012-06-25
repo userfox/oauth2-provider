@@ -108,7 +108,7 @@ module OAuth2
       end
       
       def validate_client
-        @client = Model::Client.where(:client_id => @params[CLIENT_ID]).first
+        @client = Model::Client.where(:cid => @params[CLIENT_ID]).first
         unless @client
           @error = INVALID_CLIENT
           @error_description = "Unknown client ID #{@params[CLIENT_ID]}"

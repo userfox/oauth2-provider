@@ -9,12 +9,12 @@ module OAuth2
       has_many :authorizations, :class_name => 'OAuth2::Model::Authorization'
       
       store_in :oauth2_clients
-      field :client_id, :type=>Integer
+      field :cid, :type=>Integer
       field :name, :type=>String
       field :redirect_uri, :type=>String
       field :client_secret_hash, :type=>String
 
-      validates_uniqueness_of :client_id
+      validates_uniqueness_of :cid
       validates_presence_of   :name, :redirect_uri
       validate :check_format_of_redirect_uri
       
@@ -24,7 +24,7 @@ module OAuth2
       
       def self.create_client_id
         OAuth2.generate_id do |client_id|
-          count(:conditions => {:client_id => client_id}).zero?
+          count(:conditions => {:cid => client_id}).zero?
         end
       end
       
@@ -49,7 +49,7 @@ module OAuth2
       end
       
       def generate_credentials
-        self.client_id = self.class.create_client_id
+        self.cid = self.class.create_client_id
         self.client_secret = OAuth2.random_string
       end
     end

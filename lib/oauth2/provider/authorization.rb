@@ -135,7 +135,7 @@ module OAuth2
           return
         end
         
-        @client = @params[CLIENT_ID] && Model::Client.where(:client_id => @params[CLIENT_ID]).first
+        @client = @params[CLIENT_ID] && Model::Client.where(:cid => @params[CLIENT_ID]).first
         unless @client
           @error = INVALID_CLIENT
           @error_description = "Unknown client ID #{@params[CLIENT_ID]}"
@@ -161,7 +161,7 @@ module OAuth2
           @error_description = "Response type #{@params[RESPONSE_TYPE]} is not supported"
         end
         
-        @client = Model::Client.where(:client_id => @params[CLIENT_ID]).first
+        @client = Model::Client.where(:cid => @params[CLIENT_ID]).first
         unless @client
           @error = INVALID_CLIENT
           @error_description = "Unknown client ID #{@params[CLIENT_ID]}"

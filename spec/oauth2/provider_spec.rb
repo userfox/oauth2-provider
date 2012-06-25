@@ -5,7 +5,7 @@ describe OAuth2::Provider do
   after(:all)  { TestApp::Provider.stop }
   
   let(:params) { { 'response_type' => 'code',
-                   'client_id'     => @client.client_id,
+                   'cid'     => @client.cid,
                    'redirect_uri'  => @client.redirect_uri }
                }
   
@@ -133,8 +133,8 @@ describe OAuth2::Provider do
           response['location'].should == 'https://client.example.com/cb#access_token=new_access_token'
         end
         
-        describe "with an invalid client_id" do
-          before { params['client_id'] = 'unknown_id' }
+        describe "with an invalid cid" do
+          before { params['cid'] = 'unknown_id' }
           
           it "does not generate any new tokens" do
             OAuth2.should_not_receive(:random_string)
@@ -168,21 +168,21 @@ describe OAuth2::Provider do
       end
     end
     
-    describe "with a redirect_uri and no client_id" do
+    describe "with a redirect_uri and no cid" do
       let(:params) { {'redirect_uri' => 'http://evilsite.com/callback'} }
       
       it "renders an error page" do
         response = get(params)
         validate_json_response(response, 400,
           'error'             => 'invalid_request',
-          'error_description' => 'Missing required parameter client_id'
+          'error_description' => 'Missing required parameter cid'
         )
       end
     end
     
-    describe "with a client_id and a bad redirect_uri" do
+    describe "with a cid and a bad redirect_uri" do
       let(:params) { {'redirect_uri' => 'http://evilsite.com/callback',
-                      'client_id'    => @client.client_id} }
+                      'cid'    => @client.cid} }
       
       it "redirects to the client's registered redirect_uri" do
         response = get(params)
@@ -334,12 +334,12 @@ describe OAuth2::Provider do
       @authorization = Factory(:authorization, :client => @client, :owner => @owner)
     end
     
-    let(:auth_params)  { { 'client_id'     => @client.client_id,
+    let(:auth_params)  { { 'cid'     => @client.cid,
                            'client_secret' => @client.client_secret }
                        }
     
     describe "using authorization_code request" do
-      let(:query_params) { { 'client_id'    => @client.client_id,
+      let(:query_params) { { 'cid'    => @client.cid,
                              'grant_type'   => 'authorization_code',
                              'code'         => @authorization.code,
                              'redirect_uri' => @client.redirect_uri }
@@ -415,14 +415,14 @@ describe OAuth2::Provider do
         end
       end
       
-      describe "with mismatched client_id in POST params and Basic Auth params" do
-        before { query_params['client_id'] = 'foo' }
+      describe "with mismatched cid in POST params and Basic Auth params" do
+        before { query_params['cid'] = 'foo' }
         
         it "returns an error response" do
           response = post_basic_auth(auth_params, query_params)
           validate_json_response(response, 400,
             'error'             => 'invalid_request',
-            'error_description' => 'Bad request: client_id from Basic Auth and request body do not match'
+            'error_description' => 'Bad request: cid from Basic Auth and request body do not match'
           )
         end
       end

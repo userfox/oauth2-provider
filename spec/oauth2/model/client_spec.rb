@@ -33,8 +33,8 @@ describe OAuth2::Model::Client do
   end
   
   it "cannot mass-assign client_id" do
-    @client.update_attributes(:client_id => 'foo')
-    @client.client_id.should_not == 'foo'
+    @client.update_attributes(:cid => 'foo')
+    @client.cid.should_not == 'foo'
   end
   
   it "cannot mass-assign client_secret" do
@@ -43,7 +43,7 @@ describe OAuth2::Model::Client do
   end
   
   it "has client_id and client_secret filled in" do
-    @client.client_id.should_not be_nil
+    @client.cid.should_not be_nil
     @client.client_secret.should_not be_nil
   end
   
