@@ -32,7 +32,7 @@ module OAuth2
       attr_reader :client_secret
       
       def client_secret=(secret)
-        @client_secret = secret
+        self[:client_secret] = secret
         self.client_secret_hash = BCrypt::Password.create(secret)
       end
       
