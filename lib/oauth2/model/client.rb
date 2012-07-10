@@ -13,6 +13,7 @@ module OAuth2
       field :name, :type=>String
       field :redirect_uri, :type=>String
       field :client_secret_hash, :type=>String
+      field :client_secret, :type=>String
 
       validates_uniqueness_of :cid
       validates_presence_of   :name, :redirect_uri
