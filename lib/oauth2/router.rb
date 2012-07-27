@@ -11,7 +11,7 @@ module OAuth2
     class << self
       def parse(resource_owner, env)
         error   = detect_transport_error(env)
-        request = request_from(env)
+        request = env #request_from(env)
         params  = request.params
         auth    = auth_params(env)
         
@@ -38,7 +38,7 @@ module OAuth2
       end
 
       def access_token_from_request(env)
-        request = request_from(env)
+        request = env #request_from(env)
         params  = request.params
         header  = request.env['HTTP_AUTHORIZATION']
         
@@ -63,7 +63,7 @@ module OAuth2
       end
       
       def detect_transport_error(env)
-        request = request_from(env)
+        request = env #request_from(env)
         
         if Provider.enforce_ssl and not request.ssl?
           Provider::Error.new("must make requests using HTTPS")
