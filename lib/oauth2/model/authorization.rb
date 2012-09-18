@@ -12,7 +12,7 @@ module OAuth2
       field :code, :type=>String
       field :refresh_token_hash, :type=>String
       field :access_token_hash, :type=>String
-      field :expires_at, :type=>Date
+      field :expires_at, :type=>Time
       field :scope, :type=>String
 
       index({client_id: -1, code: -1}, { unique: true})
