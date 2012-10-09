@@ -9,7 +9,7 @@ module OAuth2
       has_many :authorizations, :class_name => 'OAuth2::Model::Authorization'
       
       store_in :oauth2_clients
-      field :cid, :type=>Integer
+      field :cid, :type=>String
       field :name, :type=>String
       field :redirect_uri, :type=>String
       field :client_secret_hash, :type=>String
