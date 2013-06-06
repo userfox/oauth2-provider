@@ -6,14 +6,14 @@ module OAuth2
       include Mongoid::Timestamps
 
       belongs_to :owner, polymorphic: true
-      has_many :authorizations, :class_name => 'OAuth2::Model::Authorization'
+      has_many :authorizations, class_name: 'OAuth2::Model::Authorization'
       
-      store_in :oauth2_clients
-      field :cid, :type=>String
-      field :name, :type=>String
-      field :redirect_uri, :type=>String
-      field :client_secret_hash, :type=>String
-      field :client_secret, :type=>String
+      store_in collection: "oauth2_clients"
+      field :cid, type: String
+      field :name, type: String
+      field :redirect_uri, type: String
+      field :client_secret_hash, type: String
+      field :client_secret, type: String
 
       validates_uniqueness_of :cid
       validates_presence_of   :name, :redirect_uri

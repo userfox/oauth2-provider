@@ -4,8 +4,8 @@ module OAuth2
     module ResourceOwner
       def self.included(klass)
         klass.has_many :oauth2_authorizations,
-                       :class_name => 'OAuth2::Model::Authorization',
-                       :as => :owner
+                       class_name: 'OAuth2::Model::Authorization',
+                       as: :owner
       end
       
       def grant_access!(client, options = {})

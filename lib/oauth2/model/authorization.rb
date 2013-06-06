@@ -5,15 +5,15 @@ module OAuth2
       include Mongoid::Document
       include Mongoid::Timestamps
       
-      store_in :oauth2_authorizations
+      store_in collection: "oauth2_authorizations"
       belongs_to :owner, polymorphic: true
-      belongs_to :client, :class_name => 'OAuth2::Model::Client'
+      belongs_to :client, class_name: 'OAuth2::Model::Client'
       
-      field :code, :type=>String
-      field :refresh_token_hash, :type=>String
-      field :access_token_hash, :type=>String
-      field :expires_at, :type=>Time
-      field :scope, :type=>String
+      field :code, type: String
+      field :refresh_token_hash, type: String
+      field :access_token_hash, type: String
+      field :expires_at, type: Time
+      field :scope, type: String
 
       index({client_id: -1, code: -1}, { unique: true})
       index({access_token_hash: -1}, { unique: true})
@@ -21,8 +21,8 @@ module OAuth2
       index({client_id: -1, refresh_token_hash: -1}, { unique: true})
       validates_presence_of :client, :owner
       
-      validates_uniqueness_of :code,               :scope => :client_id, :allow_nil => true
-      validates_uniqueness_of :refresh_token_hash, :scope => :client_id, :allow_nil => true
+      validates_uniqueness_of :code,               scope: :client_id, :allow_nil => true
+      validates_uniqueness_of :refresh_token_hash, scope: :client_id, :allow_nil => true
       validates_uniqueness_of :access_token_hash,                        :allow_nil => true
       
       extend Hashing

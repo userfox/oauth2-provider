@@ -4,8 +4,8 @@ module OAuth2
     module ClientOwner
       def self.included(klass)
         klass.has_many :oauth2_clients,
-                       :class_name => 'OAuth2::Model::Client',
-                       :as => :owner
+                       class_name: 'OAuth2::Model::Client',
+                       as: :owner
       end
     end
     
